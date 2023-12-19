@@ -130,6 +130,7 @@ timeSlot2=timeslotModel!.data.slots;
         update();
 
       } else {
+        Fluttertoast.showToast(msg: msg.toString());
         update();
       }
     });
