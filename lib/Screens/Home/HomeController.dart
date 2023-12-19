@@ -3,8 +3,10 @@ import 'package:booknplay/Controllers/app_base_controller/app_base_controller.da
 import 'package:booknplay/Models/HomeModel/ground_reponse.dart';
 import 'package:booknplay/Services/api_services/apiConstants.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../Local_Storage/shared_pre.dart';
 import '../../Models/HomeModel/home_cat_reponce.dart';
@@ -173,5 +175,66 @@ update();
     catList.forEach((element) {element.isSelected = false ;});
     catList[index].isSelected = true ;
     homeGround(catList[index].id.toString() ?? '');
+  }
+
+
+  Future <void> searchbytimeslot () async{
+
+
+    update();
+    var param = {
+      'category_id': "${timeslotSectcat.toString()}",
+      'date': "${datecontroller.text.toString()}",
+      'time': '${timeController.text.toString()}:00'
+    };
+
+    apiBaseHelper.postAPICall(SearchbytimeSlotAPI, param).then((getData) {
+      bool error = getData['status'];
+      String msg = getData['message'];
+      update();
+      if (error) {
+
+
+        update();
+        groundList = (getData['data'] as List).map((e) => GroundList.fromJson(e)).toList();
+datecontroller.clear();
+timeController.clear();
+        update();
+      Get.back();
+
+
+
+      } else {
+        Get.back();
+        Fluttertoast.showToast(msg: msg.toString());
+        groundList.clear();
+      }
+    });
+  }
+  final formKey = GlobalKey<FormState>();
+  var timeslotSectcat;
+
+  TextEditingController   datecontroller=TextEditingController();
+  TextEditingController   timeController=TextEditingController();
+var selectCatIddd;
+  DateTime selectedDate = DateTime.now();
+  Future<void> sselectDate(BuildContext context) async {
+
+    final DateTime? picked = await showDatePicker(
+
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != selectedDate)
+
+      selectedDate = picked;
+    datecontroller.text=
+        DateFormat('yyyy-MM-dd').format(selectedDate);
+    print("==================${datecontroller.text}");
+
+
+    update();
   }
 }

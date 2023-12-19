@@ -7,7 +7,9 @@ import 'package:booknplay/Widgets/commen_widgets.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +20,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var select;
+
+
+  HomeController homeController=Get.put(HomeController());
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +65,259 @@ class _HomeScreenState extends State<HomeScreen> {
                           onChanged: (value) {
                             controller.searchLeads(value);
                           },
-                          decoration: const InputDecoration(
-                            hintText: "Search Ground",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.only(top: 15),
-                            prefixIcon: Icon(Icons.search),
-                          ),
+                          decoration: InputDecoration(
+                              hintText: "Search Ground",
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.only(top: 15),
+                              prefixIcon: Icon(Icons.search),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+
+                                  Get.defaultDialog(
+                                      title: "Search By Time Slot",
+                                      content:
+
+
+                                      GetBuilder(
+                                        init: HomeController(),
+                                        builder: (homecontroller) {
+                                          return
+
+                                            Form(
+                                            key: controller.formKey,
+                                            child: Column(
+                                              children: [
+                                                controller.catList.isEmpty
+                                                    ? SizedBox(
+                                                        height: 50,
+                                                        width: MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                        child: const Center(
+                                                          child: Text(
+                                                              'Categories Not Available'),
+                                                        ),
+                                                      )
+                                                    : SingleChildScrollView(
+                                                        child: Row(
+                                                          children: [
+                                                            Container(
+                                                              height: 50,
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  1.5,
+                                                              child: ListView.builder(
+                                                                shrinkWrap: true,
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                physics:
+                                                                    const AlwaysScrollableScrollPhysics(),
+                                                                itemCount: controller
+                                                                        .catList
+                                                                        .length ??
+                                                                    0,
+                                                                itemBuilder:
+                                                                    (context, index) {
+                                                                  return InkWell(
+                                                                    onTap: () {
+                                                                      controller
+                                                                              .timeslotSectcat =
+                                                                          index;
+                                                                      controller
+                                                                          .update();
+                                                                      controller
+                                                                              .selectCatIddd =
+                                                                          controller
+                                                                              .catList[
+                                                                                  index]
+                                                                              .id;
+                                                                      controller
+                                                                          .update();
+                                                                    },
+                                                                    child: Card(
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color: controller.timeslotSectcat ==
+                                                                                  index
+                                                                              ? AppColors
+                                                                                  .bluecolor
+                                                                              : Colors
+                                                                                  .white,
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                              color: Colors
+                                                                                  .grey
+                                                                                  .withOpacity(0.5),
+                                                                              blurRadius:
+                                                                                  10,
+                                                                              spreadRadius:
+                                                                                  0,
+                                                                            ),
+                                                                          ],
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(
+                                                                                  5.0),
+                                                                        ),
+                                                                        height: 40,
+                                                                        width: 105,
+                                                                        child: Center(
+                                                                          child: Text(
+                                                                            '${controller.catList[index].title}',
+                                                                            style: TextStyle(
+                                                                                fontSize:
+                                                                                    13,
+                                                                                color: controller.timeslotSectcat == index
+                                                                                    ? Colors.white
+                                                                                    : Colors.black),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Card(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(10)),
+                                                  elevation: 3,
+                                                  child: TextFormField(
+                                                    onTap: () {
+                                                      controller.sselectDate(context);
+                                                    },
+                                                    readOnly: true,
+                                                    controller:
+                                                        controller.datecontroller,
+                                                    decoration: InputDecoration(
+                                                        hintText: " Select Date",
+                                                        border: InputBorder.none,
+                                                        contentPadding:
+                                                            EdgeInsets.only(top: 15),
+                                                        suffixIcon: IconButton(
+                                                          onPressed: () {},
+                                                          icon: Icon(
+                                                            Icons
+                                                                .calendar_month_sharp,
+                                                            color: Colors.black,
+                                                          ),
+                                                        )),
+                                                    validator: (value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) {
+                                                        return ' Please Select Date';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Card(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(10)),
+                                                  elevation: 3,
+                                                  child: TextFormField(
+                                                    onTap: () async {
+                                                      TimeOfDay? picked = await selectTime(context);
+                                                      if (picked != null) {
+                                                        DateTime dateTime = DateTime(
+                                                            2020, 10, 10, picked!.hour, picked!.minute);
+                                                        setState(() {
+                                                          controller.timeController.text =
+                                                          "${DateFormat("HH").format(dateTime)}:00";
+                                                          print(controller.timeController.text);
+                                                        });
+                                                      }
+                                                    },
+                                                    readOnly: true,
+
+                                                    controller:
+                                                        controller.timeController,
+                                                    decoration: InputDecoration(
+                                                        counterText: "",
+                                                        hintText: " Time",
+                                                        border: InputBorder.none,
+                                                        contentPadding:
+                                                            EdgeInsets.only(top: 15),
+                                                        suffixIcon: IconButton(
+                                                          onPressed: () {},
+                                                          icon: Icon(
+                                                            Icons
+                                                                .watch_later_outlined,
+                                                            color: Colors.black,
+                                                          ),
+                                                        )),
+                                                    validator: (value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) {
+                                                        return ' Please Enter Time';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                          primary:
+                                                              AppColors.bluecolor),
+                                                      child: const Text("Back"),
+                                                      onPressed: () async {
+                                                       Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                          primary:
+                                                              AppColors.bluecolor),
+                                                      child: const Text("Search"),
+                                                      onPressed: () {
+                                                        if (controller
+                                                            .formKey.currentState!
+                                                            .validate()) {
+                                                          if (controller
+                                                                  .selectCatIddd ==
+                                                              null) {
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    "Select Category");
+                                                          } else {
+                                                            controller.update();
+                                                            controller
+                                                                .searchbytimeslot();
+                                                          }
+                                                        }
+                                                      },
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        }
+                                      ));
+                                },
+                                icon: Icon(Icons.calendar_month_sharp),
+                              )),
                         ),
                       ),
                       const SizedBox(
@@ -442,7 +696,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
   }
+  Future<TimeOfDay?> selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        builder: (BuildContext? context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context!).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        });
 
+    return picked;
+  }
   Widget sliderPointers(List doteList, int currentIndex) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,

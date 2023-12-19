@@ -181,7 +181,9 @@ class BookingFormScreen extends StatelessWidget {
                                   dateTimeofIndex.isBefore(DateTime.now())
                                     ? SizedBox()
                                     : controller.timeSlot2[index].isBooked != 1
-                                        ? InkWell(
+                                        ?
+
+                                  InkWell(
                                             onTap: () {
 
                                               controller.tabIndex = index;

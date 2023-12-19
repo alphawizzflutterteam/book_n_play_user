@@ -33,5 +33,6 @@ final Uri Addreview = Uri.parse('${baseUrl}ground_review');
 final Uri cancleBooking = Uri.parse('${baseUrl}cancel_booking');
 final Uri GetNotification = Uri.parse('${baseUrl}get_notification');
 final Uri supportAPI = Uri.parse('${baseUrl}policies?slug=support_us');
+final Uri SearchbytimeSlotAPI = Uri.parse('${baseUrl}search_by_slot_availability');
 
 
