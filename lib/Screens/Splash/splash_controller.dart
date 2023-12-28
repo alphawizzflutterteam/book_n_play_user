@@ -24,7 +24,7 @@ class SplashController extends AppBaseController {
   }
 
   checkInternet() async {
-
+print("");
 
 
     try {

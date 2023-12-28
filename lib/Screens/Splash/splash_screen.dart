@@ -27,6 +27,8 @@ class SplashScreen extends StatelessWidget {
           ),
           child: Image.asset('assets/images/splash_logo.png',scale: 2,),
 
+
+
         );
       },) ;
   }
