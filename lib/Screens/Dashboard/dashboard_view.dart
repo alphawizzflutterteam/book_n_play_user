@@ -296,7 +296,7 @@ class DashBoardScreen extends StatelessWidget {
             onTap: () {
               controller.currentIndex.value = 9;
               if (Platform.isAndroid || Platform.isIOS) {
-                final appId = Platform.isAndroid ? 'com.example.booknplay' : 'com.example.booknplay';
+                final appId = Platform.isAndroid ? 'com.booknplayuser.app' : 'com.booknplayuser.app';
                 final url = Uri.parse(
                   Platform.isAndroid
                       ? "market://details?id=$appId"

@@ -23,7 +23,7 @@ class MyBookingController extends AppBaseController{
     var obj = await SharedPre.getObjs(SharedPre.userData);
 
     usedata = User.fromJson(obj);
-    getBookingHistory();
+    getBookingHistory('0');
 
   }
 
@@ -37,14 +37,29 @@ class MyBookingController extends AppBaseController{
 
 
   }
+int selectedSegmentVal = 0 ;
+  setSegmentValue(int i) {
+    selectedSegmentVal = i;
+    String status;
+    if (i == 0) {
+      getBookingHistory('0');
+      //parcelHistory(1);
+    } else if (i == 1) {
+
+      getBookingHistory('1');
+      //parcelHistory(2);
+    }
+update();
+    // getOrderList(status: status);
+  }
 
   BookingHistoryModel?bookingHistoryModel;
   String ?msg;
-  Future<void> getBookingHistory() async{
+  Future<void> getBookingHistory( String status) async{
 
     var param = {
             'user_id': usedata.id.toString(),
-         // 'user_id': '120',
+          'status': status,
     };
     apiBaseHelper.postAPICall(GetBookingHistory, param).then((getData) {
       bool error = getData['status'];

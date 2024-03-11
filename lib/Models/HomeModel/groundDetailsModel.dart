@@ -2,7 +2,7 @@
 class GroundDetailsModel {
   bool status;
   String message;
-  Data data;
+  GroundDetailData data;
 
   GroundDetailsModel({
     required this.status,
@@ -13,7 +13,7 @@ class GroundDetailsModel {
   factory GroundDetailsModel.fromJson(Map<String, dynamic> json) => GroundDetailsModel(
     status: json["status"],
     message: json["message"],
-    data: Data.fromJson(json["data"]),
+    data: GroundDetailData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -23,18 +23,18 @@ class GroundDetailsModel {
   };
 }
 
-class Data {
+class GroundDetailData {
   List<String> image;
   Details details;
   List<TimeSlote> timeSlotes;
 
-  Data({
+  GroundDetailData({
     required this.image,
     required this.details,
     required this.timeSlotes,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory GroundDetailData.fromJson(Map<String, dynamic> json) => GroundDetailData(
     image: List<String>.from(json["image"].map((x) => x)),
     details: Details.fromJson(json["details"]),
     timeSlotes: List<TimeSlote>.from(json["time_slotes"].map((x) => TimeSlote.fromJson(x))),
@@ -139,27 +139,31 @@ class Details {
 }
 
 class TimeSlote {
-  String time;
-  int isBooked;
-  int isOffer;
-  int price;
+  String? fromTime;
+  String? toTime;
+  int? isBooked;
+  int? isOffer;
+  int? price;
 
   TimeSlote({
-    required this.time,
-    required this.isBooked,
-    required this.isOffer,
-    required this.price,
+    this.fromTime,
+    this.toTime,
+    this.isBooked,
+    this.isOffer,
+    this.price,
   });
 
   factory TimeSlote.fromJson(Map<String, dynamic> json) => TimeSlote(
-    time: json["time"]??'',
+    fromTime: json["from_time"] ??'',
+    toTime: json["to_time"] ??'',
     isBooked: json["is_booked"]??'',
     isOffer: json["is_offer"]??'',
     price: json["price"]??'',
   );
 
   Map<String, dynamic> toJson() => {
-    "time": time,
+    "from_time": fromTime,
+    "to_time": toTime,
     "is_booked": isBooked,
     "is_offer": isOffer,
     "price": price,

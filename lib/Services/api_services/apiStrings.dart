@@ -15,7 +15,7 @@ final Uri getTermsAPI = Uri.parse('${baseUrl}policies?slug=terms_and_condition')
 final Uri changePasswordAPI = Uri.parse('${baseUrl}change_password');
 final Uri getProfileApi = Uri.parse('${baseUrl}get_profile');
 final Uri updateProfileApi = Uri.parse('${baseUrl}update_profile');
-final Uri getFAQApi = Uri.parse('${baseUrl}faqs');
+final Uri getFAQApi = Uri.parse('${baseUrl}faqs?user_type=0');
 final Uri getTransactionApi = Uri.parse('${baseUrl}transaction_histroy');
 final Uri fetchProductByFillters = Uri.parse('${baseUrl}add_money');
 final Uri getCommunity = Uri.parse('${baseUrl}get_community');
@@ -31,6 +31,7 @@ final Uri BookingGround = Uri.parse('${baseUrl}booking');
 final Uri ApplyPromocode = Uri.parse('${baseUrl}applied_offer');
 final Uri Addreview = Uri.parse('${baseUrl}ground_review');
 final Uri cancleBooking = Uri.parse('${baseUrl}cancel_booking');
+final Uri raiseComplaintRequest = Uri.parse('${baseUrl}raise_complaint');
 final Uri GetNotification = Uri.parse('${baseUrl}get_notification');
 final Uri supportAPI = Uri.parse('${baseUrl}policies?slug=support_us');
 final Uri SearchbytimeSlotAPI = Uri.parse('${baseUrl}search_by_slot_availability');

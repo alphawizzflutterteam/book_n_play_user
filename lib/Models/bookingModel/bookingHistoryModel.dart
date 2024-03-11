@@ -1,7 +1,7 @@
 class BookingHistoryModel {
   bool status;
   String message;
-  List<Datum> data;
+  List<BookingHitoryData> data;
 
   BookingHistoryModel({
     required this.status,
@@ -12,7 +12,7 @@ class BookingHistoryModel {
   factory BookingHistoryModel.fromJson(Map<String, dynamic> json) => BookingHistoryModel(
     status: json["status"],
     message: json["message"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<BookingHitoryData>.from(json["data"].map((x) => BookingHitoryData.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -22,7 +22,7 @@ class BookingHistoryModel {
   };
 }
 
-class Datum {
+class BookingHitoryData {
   String id;
   String userId;
   String groundId;
@@ -42,8 +42,10 @@ class Datum {
   String totalAmount;
   DateTime createdAt;
   String updatedAt;
+  String graoundImage;
+  String status;
 
-  Datum({
+  BookingHitoryData({
     required this.id,
     required this.userId,
     required this.groundId,
@@ -63,10 +65,13 @@ class Datum {
     required this.totalAmount,
     required this.createdAt,
     required this.updatedAt,
+    required this.graoundImage,
+    required this.status,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory BookingHitoryData.fromJson(Map<String, dynamic> json) => BookingHitoryData(
     id: json["id"].toString(),
+    status: json["status"].toString(),
     userId: json["user_id"].toString(),
     groundId: json["ground_id"].toString(),
     vendorId: json["vendor_id"].toString(),
@@ -85,6 +90,7 @@ class Datum {
     totalAmount: json["total_amount"].toString(),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"].toString(),
+    graoundImage: json["groundimage"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -107,5 +113,6 @@ class Datum {
     "total_amount": totalAmount,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt,
+    "groundimage": graoundImage,
   };
 }

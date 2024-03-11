@@ -10,44 +10,42 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Routes/all_pages.dart';
 import 'Routes/routes.dart';
 import 'Routes/screen_bindings.dart';
+import 'firebase_massageing.dart';
 
-void main() async{
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
-
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  LocalNotificationService.initialize();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  await GetStorage.init();
 
-  try{
+  ErrorWidget.builder = (FlutterErrorDetails details) => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+
+  try {
     String? token = await FirebaseMessaging.instance.getToken();
-    print("--device---------token:-----${token}");
+    debugPrint("--device---------token:-----${token}");
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('deviceToken',token.toString() );
-
-  } on FirebaseException{
-    print('__________FirebaseException_____________');
+    await preferences.setString('deviceToken', token.toString());
+  } on FirebaseException {
+    debugPrint('__________FirebaseException_____________');
   }
-  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  /* FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true, // Required to display a heads up notification
     badge: true,
     sound: true,
 
-  );
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
+  );*/
 
-  ]);
-  ErrorWidget.builder = (
-      
-      FlutterErrorDetails details) =>const Scaffold(
-    body:Center(child:  CircularProgressIndicator()),
-  );
   runApp(const MyApp());
-
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await GetStorage.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -56,7 +54,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: splashScreen,
@@ -67,22 +64,18 @@ class MyApp extends StatelessWidget {
       darkTheme: getLightTheme(),
     );
   }
+
   ThemeData getLightTheme() {
     // TODO change font dynamically
     return ThemeData(
         primaryColor: Colors.white,
-        floatingActionButtonTheme:const FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
             elevation: 0, foregroundColor: Colors.white),
         brightness: Brightness.light,
-
-
         scrollbarTheme: ScrollbarThemeData(
             thumbVisibility: MaterialStateProperty.all(true),
             thickness: MaterialStateProperty.all(2),
             thumbColor: MaterialStateProperty.all<Color>(Colors.black54)),
-
-
-
         primaryTextTheme: GoogleFonts.poppinsTextTheme(
           //'Montserrat',
           const TextTheme(

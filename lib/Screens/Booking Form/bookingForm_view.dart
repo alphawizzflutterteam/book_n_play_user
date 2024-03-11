@@ -50,16 +50,16 @@ class BookingFormScreen extends StatelessWidget {
               // Optional: Add rounded corners
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xFFb6eeff).withOpacity(0.8), // Shadow color
+                  color: const Color(0xFFb6eeff).withOpacity(0.8), // Shadow color
                   spreadRadius: 30, // Spread radius
                   blurRadius: 20, // Blur radius
-                  offset: Offset(3, 3), // Offset from the top
+                  offset: const Offset(3, 3), // Offset from the top
                 ),
               ],
-              border: Border.fromBorderSide(BorderSide(
+              border: const Border.fromBorderSide(BorderSide(
                   style: BorderStyle.solid, color: Colors.black, width: 5)),
               color: Colors.grey.shade300,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30), // Top-left corner radius
                 topRight: Radius.circular(30), // Top-right corner radius
                 bottomLeft:
@@ -74,10 +74,10 @@ class BookingFormScreen extends StatelessWidget {
                 child: Form(
                   key: controller.formKey,
                   child: Column(children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -86,7 +86,7 @@ class BookingFormScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
@@ -97,22 +97,22 @@ class BookingFormScreen extends StatelessWidget {
                       autofocus: false,
                       controller: controller.datecontroller,
                       decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.calendar_month_sharp,
+                          suffixIcon: const Icon(Icons.calendar_month_sharp,
                               color: Colors.grey),
                           hintText: "Select Booking Date",
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6.0)),
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide:
-                                  BorderSide(color: Colors.white, width: 3.0))),
+                                  const BorderSide(color: Colors.white, width: 3.0))),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please Select Date';
@@ -120,10 +120,10 @@ class BookingFormScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -132,29 +132,31 @@ class BookingFormScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
                     controller.timeSlot2.isEmpty
                         ? Container(
                             height: 50,
-                            child: Center(
+                            child: const Center(
                               child: Text('Please Select Date'),
                             ),
                           )
-                        : Container(
-                            height: 50,
+                        :
+
+                    Container(
+                            height: 70,
                             child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              physics: AlwaysScrollableScrollPhysics(),
+                              physics: const AlwaysScrollableScrollPhysics(),
                               itemCount: controller.timeSlot2.length,
                               itemBuilder: (context, index) {
 
 
 
-                                var timeslot = controller.timeSlot2[index].time;
+                                var timeslot = controller.timeSlot2[index].fromTime;
 
                                 List<String>? timeParts = timeslot?.split(':');
                                 var timeslott = timeParts?[0];
@@ -162,11 +164,12 @@ class BookingFormScreen extends StatelessWidget {
                                 TimeOfDay currentTime = TimeOfDay(
                                     hour: int.parse(timeslott.toString()),
                                     minute: 0);
-                                TimeOfDay newTime = currentTime.replacing(
-                                    hour: currentTime.hour + 1);
+                                /*TimeOfDay newTime = currentTime.replacing(
+                                    hour: currentTime.hour + 1);*/
+                                String newTime2 = controller.timeSlot2[index].toTime ?? '' ;
 
                                 var CheckTime =
-                                    "${controller.datecontroller.text} ${controller.timeSlot2[index].time}:00.000";
+                                    "${controller.datecontroller.text} ${controller.timeSlot2[index].fromTime}:00.000";
 
                                 DateTime dateTimeofIndex =
                                     DateTime.parse(CheckTime);
@@ -179,39 +182,42 @@ class BookingFormScreen extends StatelessWidget {
 
 
                                   dateTimeofIndex.isBefore(DateTime.now())
-                                    ? SizedBox()
+                                    ? const SizedBox()
                                     : controller.timeSlot2[index].isBooked != 1
                                         ?
 
                                   InkWell(
-                                            onTap: () {
-
+                                    onTap: () {
                                               controller.tabIndex = index;
                                               controller.update();
                                               var timeslotA = controller
-                                                  .timeSlot2[index].time;
-
+                                                  .timeSlot2[index].fromTime;
                                               List<String>? timeParts =
-                                                  timeslotA.split(':');
-                                              var timeslott = timeParts[0];
-
+                                                  timeslotA?.split(':');
+                                              var timeslott = timeParts?[0];
                                               TimeOfDay currentTime1 =
                                                   TimeOfDay(
                                                       hour: int.parse(
                                                           timeslott.toString()),
                                                       minute: 0);
-                                              controller.selectTimeFrom =
-                                                  "${currentTime1.hour}:00";
+                                              /*controller.selectTimeFrom =
+                                                  "${currentTime1.hour}:00";*/
+                                              controller.selectTimeFrom = controller
+                                                  .timeSlot2[index].fromTime;
                                               TimeOfDay newTime =
                                                   currentTime.replacing(
                                                       hour: currentTime1.hour +
                                                           1);
-                                              controller.selectTimeTo =
-                                                  "${newTime.hour}:00";
+                                              controller.selectTimeTo = controller
+                                                  .timeSlot2[index].toTime ;
                                               controller.update();
+
+
+                                              controller.finalAmount = controller.timeSlot2[index].price;
                                             },
                                             child: Card(
                                               child: Container(
+
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
                                                       color:
@@ -220,11 +226,18 @@ class BookingFormScreen extends StatelessWidget {
                                                               ? Colors.black
                                                               : Colors.white,
                                                       width: 2),
+
                                                   color: controller
                                                               .timeSlot2[index]
                                                               .isBooked !=
                                                           1
-                                                      ? Colors.greenAccent
+                                                      ?
+                                                  controller
+                                                      .timeSlot2[index]
+                                                      .isOffer ==
+                                                      1?
+                                                  Colors.yellow
+                                                      : Colors.greenAccent
                                                       : Colors.grey,
                                                   boxShadow: [
                                                     BoxShadow(
@@ -238,44 +251,61 @@ class BookingFormScreen extends StatelessWidget {
                                                       BorderRadius.circular(
                                                           5.0),
                                                 ),
-
-                                                height: 40,
+                                                height: 70,
 
                                                 // width: 105,
 
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
+                                                  child: Column(
                                                     children: [
+
+
                                                       Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
                                                         children: [
-                                                          Text(
-                                                            '${controller.timeSlot2[index].time}',
-                                                            style: TextStyle(
-                                                                fontSize: 13),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 3,
-                                                          ),
-                                                          Text(
-                                                            'To',
-                                                            style: TextStyle(
-                                                                fontSize: 13),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 3,
-                                                          ),
-                                                          Text(
-                                                            '${newTime.hour}:00',
-                                                            style: TextStyle(
-                                                                fontSize: 13),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                '${controller.timeSlot2[index].fromTime}',
+                                                                style: const TextStyle(
+                                                                    fontSize: 13),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              const Text(
+                                                                'To',
+                                                                style: TextStyle(
+                                                                    fontSize: 13),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              Text(
+                                                                '${newTime2}',
+                                                                style: const TextStyle(
+                                                                    fontSize: 13),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
+
+                                                      controller.timeSlot2[index]
+                                                          .isOffer ==
+                                                          1?Row(
+                                                        children: [
+                                                          Text("\u{20B9}${controller.timeSlot2[index].price}/-"),
+                                                        ],
+                                                      ):Row(
+                                                        children: [
+                                                          Text("\u{20B9}${controller.timeSlot2[index].price}/-"),
+                                                        ],
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -332,24 +362,24 @@ class BookingFormScreen extends StatelessWidget {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            '${controller.timeSlot2[index].time}',
-                                                            style: TextStyle(
+                                                            '${controller.timeSlot2[index].fromTime}',
+                                                            style: const TextStyle(
                                                                 fontSize: 13),
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 3,
                                                           ),
-                                                          Text(
+                                                          const Text(
                                                             'To',
                                                             style: TextStyle(
                                                                 fontSize: 13),
                                                           ),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             width: 3,
                                                           ),
                                                           Text(
-                                                            '${newTime.hour}:00',
-                                                            style: TextStyle(
+                                                            '${newTime2}',
+                                                            style: const TextStyle(
                                                                 fontSize: 13),
                                                           ),
                                                         ],
@@ -364,10 +394,10 @@ class BookingFormScreen extends StatelessWidget {
                             ),
                           ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -376,7 +406,7 @@ class BookingFormScreen extends StatelessWidget {
                         ),
                       ],
                     ), //
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -387,17 +417,17 @@ class BookingFormScreen extends StatelessWidget {
                           hintText: 'Enter Name',
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6.0)),
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide:
-                                  BorderSide(color: Colors.white, width: 3.0))),
+                                  const BorderSide(color: Colors.white, width: 3.0))),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please Enter Name';
@@ -406,11 +436,11 @@ class BookingFormScreen extends StatelessWidget {
                       },
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -419,7 +449,7 @@ class BookingFormScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
@@ -429,17 +459,17 @@ class BookingFormScreen extends StatelessWidget {
                           hintText: 'Enter Email id',
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6.0)),
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide:
-                                  BorderSide(color: Colors.white, width: 3.0))),
+                                  const BorderSide(color: Colors.white, width: 3.0))),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please Enter Email Id';
@@ -450,11 +480,11 @@ class BookingFormScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -463,7 +493,7 @@ class BookingFormScreen extends StatelessWidget {
                         ),
                       ],
                     ), //
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -477,17 +507,17 @@ class BookingFormScreen extends StatelessWidget {
                           hintText: 'Enter Phone Number',
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6.0)),
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide:
-                                  BorderSide(color: Colors.white, width: 3.0))),
+                                  const BorderSide(color: Colors.white, width: 3.0))),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please Enter Phone Number';
@@ -497,11 +527,11 @@ class BookingFormScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -511,7 +541,7 @@ class BookingFormScreen extends StatelessWidget {
                       ],
                     ), //
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -522,17 +552,17 @@ class BookingFormScreen extends StatelessWidget {
                           hintText: "",
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6.0)),
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide:
-                                  BorderSide(color: Colors.white, width: 3.0))),
+                                  const BorderSide(color: Colors.white, width: 3.0))),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please Enter Address';
@@ -540,11 +570,11 @@ class BookingFormScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -554,7 +584,7 @@ class BookingFormScreen extends StatelessWidget {
                       ],
                     ), //
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -569,17 +599,17 @@ class BookingFormScreen extends StatelessWidget {
                           hintText: "Apply Promo Code",
                           fillColor: Colors.white,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               // width: 0.0 produces a thin "hairline" border
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6.0)),
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide:
-                                  BorderSide(color: Colors.white, width: 3.0))),
+                                  const BorderSide(color: Colors.white, width: 3.0))),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
                       //     return 'Please Enter Promocode';
@@ -593,7 +623,7 @@ class BookingFormScreen extends StatelessWidget {
                       },
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Center(
@@ -611,7 +641,7 @@ class BookingFormScreen extends StatelessWidget {
                               }
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             "Submit",
                             style: TextStyle(
                               //decoration: TextDecoration.underline,
@@ -621,7 +651,7 @@ class BookingFormScreen extends StatelessWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                               elevation: 5,
-                              primary: Color(0xFF5ACBEF),
+                              primary: const Color(0xFF5ACBEF),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               )),
@@ -629,7 +659,7 @@ class BookingFormScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 350,
                     ),
                   ]),

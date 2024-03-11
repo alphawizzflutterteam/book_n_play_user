@@ -123,7 +123,7 @@ class Transaction {
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
     id: json["id"],
-    transactionId: json["transaction_id"],
+    transactionId:json["transaction_id"] == null ?'' : json["transaction_id"],
     userId: json["user_id"],
     paymentType: json["payment_type"],
     transactionType: json["transaction_type"],

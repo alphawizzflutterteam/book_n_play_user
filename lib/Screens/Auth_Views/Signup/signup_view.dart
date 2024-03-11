@@ -65,7 +65,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: Column(
                                   children: [
                                     TextFormField(
-                                      obscureText: obscureText,
                                       controller: nameController,
                                       style:const TextStyle(color: AppColors.subTxtClr,fontSize: 14),
                                       validator: (val) {
@@ -74,6 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                           return " Name field cannot be empty";
 
                                         }
+                                        return null;
                                       },
 
                                       decoration: CustomInputDecoration.myCustomInputDecoration(
@@ -86,7 +86,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
 
                                     TextFormField(
-                                      obscureText: obscureText,
                                       controller: emailController,
                                       style:const TextStyle(color: AppColors.subTxtClr,fontSize: 14),
                                       validator: (val) {
@@ -94,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                                           return "    Email field cannot be empty";
 
-                                        } else if (!val.contains("@")||!val.contains("gmail")||!val.contains(".com")) {
+                                        } else if (!val.contains("@")||!val.contains(".com")) {
                                           return "    please enter valid Email";
                                         }
                                       },

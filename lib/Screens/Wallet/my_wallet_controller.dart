@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:booknplay/Controllers/app_base_controller/app_base_controller.dart';
 import 'package:booknplay/Local_Storage/shared_pre.dart';
 import 'package:booknplay/Models/auth_response_model.dart';
@@ -40,7 +42,7 @@ class MyWalletController extends AppBaseController{
 
       bool error = getData['status'];
       String msg = getData['message'];
-
+       log('${getData}');
       if (error) {
         //Fluttertoast.showToast(msg: msg);
         transactionHistoryResponse =TransactionHistoryResponse.fromJson(getData);
