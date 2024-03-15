@@ -93,120 +93,167 @@ class MyBookingsScreen extends StatelessWidget {
                                       });
                                       // Get.toNamed(bookingdetails,arguments: controller.bookingHistoryModel?.data[index].id);
                                     },
-                                    child: SizedBox(
-                                      height:
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: Stack(children: [
+                                        Container(
+                                          height:
                                           MediaQuery.of(context).size.height /
                                               4,
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.network(
-                                            '${controller.bookingHistoryModel?.data[index].graoundImage}',
-                                          )),
-                                    ),
-                                  ),
-                                  Positioned(
-                                      bottom: 0,
-                                      left: 0,
-                                      right: 0,
-                                      child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(10),
-                                                    bottomRight:
-                                                        Radius.circular(10)),
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                          ),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              8,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 07,
-                                                  ),
-                                                  controller
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      '${controller.bookingHistoryModel?.data[index].graoundImage}'),
+                                                  fit: BoxFit.cover)),
+                                          // child: ClipRRect(
+                                          //     borderRadius: BorderRadius.circular(10),
+                                          //     child: Image.network(
+                                          //       '${controller.bookingHistoryModel?.data[index].graoundImage}',
+                                          //     ),),
+                                        ),
+                                        Positioned(
+                                            bottom: 0,
+                                            left: 0,
+                                            right: 0,
+                                            child: Container(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 10),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  const BorderRadius.only(
+                                                      bottomLeft:
+                                                      Radius.circular(10),
+                                                      bottomRight:
+                                                      Radius.circular(10)),
+                                                  color:
+                                                  Colors.black.withOpacity(0.5),
+                                                ),
+                                                height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                    7,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          const SizedBox(
+                                                            height: 07,
+                                                          ),
+                                                          controller
                                                               .bookingHistoryModel
                                                               ?.data[index]
                                                               .bookingName ==
-                                                          'null'
-                                                      ? const Text(
-                                                          '',
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .whit,
-                                                              fontSize: 18),
-                                                        )
-                                                      : Text(
-                                                          '${controller.bookingHistoryModel?.data[index].bookingName ?? ''}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color:
-                                                                      AppColors
-                                                                          .whit,
-                                                                  fontSize: 18),
-                                                        ),
-                                                  const SizedBox(
-                                                    height: 12,
-                                                  ),
-                                                  Text(
-                                                    '${controller.bookingHistoryModel?.data[index].totalAmount ?? ''}/-',
-                                                    style: const TextStyle(
-                                                        color: AppColors.whit,
-                                                        fontSize: 18),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  const Text(
-                                                    'Date',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 7,
-                                                  ),
-                                                  Text(
-                                                    '${controller.bookingHistoryModel?.data[index].bookingDate ?? ''}',
-                                                    style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 7,
-                                                  ),
-                                                  Text(
-                                                    '${controller.bookingHistoryModel?.data[index].bookingFrom ?? ''} to ${controller.bookingHistoryModel?.data[index].bookingTo ?? ''}',
-                                                    style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 7,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ))),
+                                                              'null'
+                                                              ? const Text(
+                                                            '',
+                                                            style: TextStyle(
+                                                                color:
+                                                                AppColors
+                                                                    .whit,
+                                                                fontSize: 18),
+                                                          )
+                                                              : Text(
+                                                            controller
+                                                                .bookingHistoryModel
+                                                                ?.data[
+                                                            index]
+                                                                .bookingName ??
+                                                                '',
+                                                            style: const TextStyle(
+                                                                color:
+                                                                AppColors
+                                                                    .whit,
+                                                                fontSize: 18),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 12,
+                                                          ),
+                                                          Text(
+                                                            '${controller.bookingHistoryModel?.data[index].totalAmount ?? ''}/-',
+                                                            style: const TextStyle(
+                                                                color:
+                                                                AppColors.whit,
+                                                                fontSize: 18),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 12,
+                                                          ),
+                                                          const Text(
+                                                            'Status',
+                                                            style: TextStyle(
+                                                                color:
+                                                                AppColors.whit,
+                                                                fontSize: 14),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+
+                                                        children: [
+                                                          const SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          const Text(
+                                                            'Date',
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 14),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 7,
+                                                          ),
+                                                          Text(
+                                                            '${controller.bookingHistoryModel?.data[index].bookingDate ?? ''}',
+                                                            style: const TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 14),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 7,
+                                                          ),
+                                                          Text(
+                                                            '${controller.bookingHistoryModel?.data[index].bookingFrom ?? ''} to ${controller.bookingHistoryModel?.data[index].bookingTo ?? ''}',
+                                                            style: const TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 14),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 2,
+                                                          ),
+                                                          Container(
+                                                            height: 30,
+                                                            padding: const EdgeInsets.all(5),
+
+                                                            decoration: BoxDecoration(
+                                                                color: Colors.white,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    15)),
+                                                            child:  Text('${controller.bookingHistoryModel?.data[index].status}'),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ))),
+                                      ]),
+                                    ),
+                                  ),
+
                                 ]),
                               );
                             },
@@ -255,7 +302,7 @@ class MyBookingsScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 1.4,
                     child: controller.bookingHistoryModel?.data.isEmpty ?? false
-                        ? Container(
+                        ? SizedBox(
                             height: MediaQuery.of(context).size.height / 1.6,
                             child:
                                 const Center(child: Text('No Booking Found')))
@@ -514,6 +561,7 @@ class MyBookingsScreen extends StatelessWidget {
       ],
     ),
   );
+
   Widget myBookings() {
     return Stack(children: [
       InkWell(

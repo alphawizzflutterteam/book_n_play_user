@@ -134,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                     controller.timeslotSectcat = index;
                                                                                     // controller.update();
                                                                                     controller.selectCatIddd = controller.catList[index].id;
+
                                                                                     controller.update();
                                                                                   },
                                                                                   child: Card(

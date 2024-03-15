@@ -107,7 +107,7 @@ class GroundDetailsScreen extends StatelessWidget {
                                             scrollPhysics:
                                                 const BouncingScrollPhysics(),
                                             autoPlay: true,
-                                            aspectRatio: 2,
+                                            aspectRatio: 1,
                                             viewportFraction: 1,
                                             onPageChanged: (index, reason) {
                                               controller.currentIndex.value =

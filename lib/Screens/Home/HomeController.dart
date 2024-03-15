@@ -187,7 +187,7 @@ class HomeController extends AppBaseController {
   Future<void> searchbytimeslot() async {
     isFilterApplied = true ;
     var param = {
-      'category_id': "${timeslotSectcat.toString()}",
+      'category_id': "${selectCatIddd}",
       'date': "${datecontroller.text.toString()}",
       'time': '${timeController.text.toString()}:00'
     };
