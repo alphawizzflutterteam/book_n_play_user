@@ -283,10 +283,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           )),
                                                                   validator:
                                                                       (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        value
-                                                                            .isEmpty) {
+                                                                    if (controller
+                                                                        .datecontroller.text.isNotEmpty && value!.isEmpty) {
                                                                       return ' Please Enter Time';
                                                                     }
                                                                     return null;
