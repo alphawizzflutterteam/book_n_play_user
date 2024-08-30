@@ -326,7 +326,7 @@ class DashBoardScreen extends StatelessWidget {
                 actions: <Widget>[
                   ElevatedButton(
                     style:
-                        ElevatedButton.styleFrom(primary: AppColors.bluecolor),
+                        ElevatedButton.styleFrom(backgroundColor: AppColors.bluecolor),
                     child:const Text("YES"),
                     onPressed: () async {
                       await SharedPre.clearAll();
@@ -337,7 +337,7 @@ class DashBoardScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     style:
-                        ElevatedButton.styleFrom(primary: AppColors.bluecolor),
+                        ElevatedButton.styleFrom(backgroundColor: AppColors.bluecolor),
                     child:const Text("NO"),
                     onPressed: () {
                       Get.back();
@@ -349,6 +349,44 @@ class DashBoardScreen extends StatelessWidget {
             child: DrawerIconTab(
               titlee: 'Logout',
               icon: AppConstants.logoutIcon,
+              tabb: 10,
+              indexx: controller.currentIndex.value,
+            )),
+        const SizedBox(
+          height: 5,
+        ),
+        InkWell(
+            onTap: () {
+              controller.currentIndex.value = 10;
+              Get.defaultDialog(
+                title: "Delete Account",
+                content:const Text("Do you want to proceed?"),
+                actions: <Widget>[
+                  ElevatedButton(
+                    style:
+                    ElevatedButton.styleFrom(backgroundColor: AppColors.bluecolor),
+                    child:const Text("YES"),
+                    onPressed: () async {
+                      await SharedPre.clearAll();
+
+                      Get.back;
+                      Get.offAllNamed(loginScreen);
+                    },
+                  ),
+                  ElevatedButton(
+                    style:
+                    ElevatedButton.styleFrom(backgroundColor: AppColors.bluecolor),
+                    child:const Text("NO"),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  )
+                ],
+              );
+            },
+            child: DrawerIconTab(
+              titlee: 'Delete Account',
+              icon: AppConstants.delete,
               tabb: 10,
               indexx: controller.currentIndex.value,
             )),

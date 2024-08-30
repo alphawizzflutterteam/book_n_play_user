@@ -301,8 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 children: [
                                                                   ElevatedButton(
                                                                     style: ElevatedButton.styleFrom(
-                                                                        primary:
-                                                                            AppColors.bluecolor),
+                                                                        backgroundColor: AppColors.bluecolor),
                                                                     child: const Text(
                                                                         "Back"),
                                                                     onPressed:
@@ -313,8 +312,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   ),
                                                                   ElevatedButton(
                                                                     style: ElevatedButton.styleFrom(
-                                                                        primary:
-                                                                            AppColors.bluecolor),
+                                                                        backgroundColor: AppColors.bluecolor),
                                                                     child: const Text(
                                                                         "Search"),
                                                                     onPressed:

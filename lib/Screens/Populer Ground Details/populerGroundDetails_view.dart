@@ -720,8 +720,7 @@ class GroundDetailsScreen extends StatelessWidget {
                                     ),
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                      elevation: 5,
-                                      primary: const Color(0xFF5ACBEF),
+                                      elevation: 5, backgroundColor: const Color(0xFF5ACBEF),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(30),
                                       )),

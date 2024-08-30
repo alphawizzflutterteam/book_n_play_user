@@ -23,6 +23,7 @@ class AppConstants {
  static const tennisIcon = 'assets/icons/tennis.png';
  static const menuIcon = 'assets/icons/menu.png';
  static const pay = 'assets/images/pay.png';
+ static const delete = 'assets/icons/logout.png';
 
 
 
