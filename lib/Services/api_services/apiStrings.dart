@@ -25,6 +25,7 @@ final Uri getMediaApi = Uri.parse('${baseUrl}get_media');
 final Uri UpdatePurchesProducttt = Uri.parse('${baseUrl}product_update');
 final Uri GetBookingHistory = Uri.parse('${baseUrl}booking_history');
 final Uri GetBookingDetails = Uri.parse('${baseUrl}booking_details');
+final Uri DeleteAccount = Uri.parse('${baseUrl}user_delete');
 final Uri GetGroundDetails = Uri.parse('${baseUrl}ground');
 final Uri AvailableTimeSlot = Uri.parse('${baseUrl}available_slots');
 final Uri BookingGround = Uri.parse('${baseUrl}booking');

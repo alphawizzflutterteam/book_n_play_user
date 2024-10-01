@@ -141,7 +141,7 @@ Future <void> updateProfile () async{
 
 
 
-  var request = http.MultipartRequest('POST', Uri.parse('https://golf.developmentalphawizz.com/api/update_profile'));
+  var request = http.MultipartRequest('POST', Uri.parse('https://bookandplay.co.in/api/update_profile'));
   request.fields.addAll({
     'user_id': usedata.id.toString(),
       'name':usedata.name ?? '',

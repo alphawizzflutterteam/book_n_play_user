@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:booknplay/Constants.dart';
+import 'package:booknplay/Models/auth_response_model.dart';
 import 'package:booknplay/Routes/routes.dart';
 import 'package:booknplay/Screens/Dashboard/dashboard_controller.dart';
+import 'package:booknplay/Services/api_services/apiBasehelper.dart';
+import 'package:booknplay/Services/api_services/apiStrings.dart';
 import 'package:booknplay/Utils/Colors.dart';
 
 import 'package:booknplay/Widgets/custom_appbar.dart';
@@ -11,6 +14,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -329,8 +333,7 @@ class DashBoardScreen extends StatelessWidget {
                         ElevatedButton.styleFrom(backgroundColor: AppColors.bluecolor),
                     child:const Text("YES"),
                     onPressed: () async {
-                      await SharedPre.clearAll();
-
+                      SharedPre.clearAll();
                       Get.back;
                       Get.offAllNamed(loginScreen);
                     },
@@ -367,10 +370,8 @@ class DashBoardScreen extends StatelessWidget {
                     ElevatedButton.styleFrom(backgroundColor: AppColors.bluecolor),
                     child:const Text("YES"),
                     onPressed: () async {
-                      await SharedPre.clearAll();
-
-                      Get.back;
-                      Get.offAllNamed(loginScreen);
+                      print("Delete button");
+                      _deleteAccount();
                     },
                   ),
                   ElevatedButton(
@@ -392,5 +393,29 @@ class DashBoardScreen extends StatelessWidget {
             )),
       ]),
     );
+  }
+
+  String? msg;
+  User usedata = User();
+  Future<void> _deleteAccount() async{
+    var obj = await SharedPre.getObjs(SharedPre.userData);
+    usedata = User.fromJson(obj);
+    var param = {
+      'user_id': usedata.id.toString(),
+    };
+    print("DeleteAccount----------->$param");
+    apiBaseHelper.postAPICall(DeleteAccount, param).then((getData) {
+      print("--ffffffffffffff--------->${getData}");
+      bool error = getData['status'];
+      msg = getData['message'];
+      if (error) {
+        Fluttertoast.showToast(msg: msg.toString());
+        SharedPre.clearAll();
+        Get.back;
+        Get.offAllNamed(loginScreen);
+      } else {
+        Fluttertoast.showToast(msg: msg.toString());
+      }
+    });
   }
 }
